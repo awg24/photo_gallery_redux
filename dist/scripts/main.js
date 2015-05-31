@@ -12,6 +12,9 @@ $(document).ready(function(event){
 	var $button = $("button");
 	var $backToMain = $("#back-to-main");
 	var $backToAlbum = $("back-to-album");
+	var $title = $("#album-title");
+	var $bannerTitle = $("#banner-title");
+	var $photoTitle = $("#photo-num");
 
 
 	$target.on("click",showAlbumDetailView);
@@ -21,7 +24,6 @@ $(document).ready(function(event){
 
 	function showAlbumDetailView(event){
 		var $albumDetailView = $(event.target);
-		console.log($albumDetailView);
 		var getAlbum = $albumDetailView.attr("id");
 		var idNum = getAlbum.slice(-1);
 
@@ -29,12 +31,17 @@ $(document).ready(function(event){
 		$("#photo-detail-page").hide();
 		$("#second-page").show();
 
+		$button.removeClass("active")
+		$("#button-"+idNum).addClass("active");
+
 		if(getAlbum !== undefined && getAlbum !== "back-to-main" && getAlbum.substring(0,5) !== "photo" && getAlbum !== "back-to-album"){
-			var j = 14;
+
+			$("#"+getAlbum).addClass("active");
+			$title.html("Album "+idNum);
+			$bannerTitle.html("My Photos");
 			for(var i = 1; i <=14; i++){
 				var $photoContainer = $("#photo-"+i);
-				$photoContainer.html("<img class='img-responsive' id='photo-detail-"+j+"'' src=css/images/album-"+idNum+"/"+j+".jpg>");
-				j--;
+				$photoContainer.html("<img class='img-responsive' id='photo-detail-"+i+"'' src=css/images/album-"+idNum+"/"+i+".jpg>");
 
 			}
 			
@@ -47,7 +54,7 @@ $(document).ready(function(event){
 	}
 
 	function goBackToMain(){
-
+		$bannerTitle.html("My Albums");
 		$("#second-page").hide();
 		$("#main-page").show();
 	}
@@ -65,29 +72,8 @@ $(document).ready(function(event){
 		$("#photo-detail-page").show();
 
 		var $photoContainer = $("#photo-detail");
+		$photoTitle.html("Photo "+photoToShow);
 		
 		$photoContainer.html("<img class='img-responsive center-block' src=css/images/album-"+albumNum+"/"+photoToShow+".jpg>");
 	}
-
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

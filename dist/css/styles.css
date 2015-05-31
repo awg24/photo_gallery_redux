@@ -44,3 +44,13 @@ button {
   margin-top: 50px; }
   .adjust-buttons button {
     background: LightGray; }
+
+#album-title {
+  font-size: 40px; }
+
+#photo-num {
+  font-size: 40px; }
+
+.active {
+  background: black;
+  color: white; }
