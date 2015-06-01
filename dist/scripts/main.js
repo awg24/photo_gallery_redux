@@ -18,7 +18,6 @@ $(document).ready(function(event){
 	var $buttonUp = $("#up");
 	var $buttonDown = $("#down");
 
-
 	$target.on("click",showAlbumDetailView);
 	$button.on("click",showAlbumDetailView);
 	$backToMain.on("click", goBackToMain);
@@ -26,9 +25,8 @@ $(document).ready(function(event){
 	$buttonUp.on("click", goToNextPhoto);
 	$buttonDown.on("click", goToNextPhoto);
 
-
-
 	function showAlbumDetailView(event){
+
 		var $albumDetailView = $(event.target);
 		var getAlbum = $albumDetailView.attr("id");
 		var idNum = getAlbum.slice(-1);
@@ -61,10 +59,12 @@ $(document).ready(function(event){
 	}
 
 	function goBackToMain(){
+
 		$bannerTitle.html("My Albums");
 		$("#second-page").hide();
 		$("#main-page").show();
 	}
+
 	function goBackToAlbum(){
 
 		$("#second-page").show();
@@ -73,6 +73,7 @@ $(document).ready(function(event){
 	}
 
 	function showPhotoDetail(idString,albumNum){
+
 		var photoToShow = idString.substring(13,idString.length);
 		$("#second-page").hide();
 		$("#main-page").hide();
@@ -121,22 +122,3 @@ $(document).ready(function(event){
 		$photoContainer.html("<img class='img-responsive center-block' id='only-image' src=css/images/album-"+albumNumString+"/"+photoToShow+".jpg>");
 	}
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
