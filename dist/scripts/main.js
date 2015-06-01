@@ -9,18 +9,24 @@ $(document).ready(function(event){
 	}
 
 	var $target = $("section div");
-	var $button = $("button");
+	var $button = $("#nav-buttons button");
 	var $backToMain = $("#back-to-main");
-	var $backToAlbum = $("back-to-album");
+	var $backToAlbum = $("#back-to-album");
 	var $title = $("#album-title");
 	var $bannerTitle = $("#banner-title");
 	var $photoTitle = $("#photo-num");
+	var $buttonUp = $("#up");
+	var $buttonDown = $("#down");
 
 
 	$target.on("click",showAlbumDetailView);
 	$button.on("click",showAlbumDetailView);
 	$backToMain.on("click", goBackToMain);
 	$backToAlbum.on("click", goBackToAlbum);
+	$buttonUp.on("click", goToNextPhoto);
+	$buttonDown.on("click", goToNextPhoto);
+
+
 
 	function showAlbumDetailView(event){
 		var $albumDetailView = $(event.target);
@@ -34,7 +40,8 @@ $(document).ready(function(event){
 		$button.removeClass("active")
 		$("#button-"+idNum).addClass("active");
 
-		if(getAlbum !== undefined && getAlbum !== "back-to-main" && getAlbum.substring(0,5) !== "photo" && getAlbum !== "back-to-album"){
+		if(getAlbum !== undefined && getAlbum !== "back-to-main" && getAlbum.substring(0,5) !== "photo" && 
+			getAlbum !== "back-to-album" && getAlbum !== "next-photo-up" && getAlbum !== "next-photo-down"){
 
 			$("#"+getAlbum).addClass("active");
 			$title.html("Album "+idNum);
@@ -70,10 +77,66 @@ $(document).ready(function(event){
 		$("#second-page").hide();
 		$("#main-page").hide();
 		$("#photo-detail-page").show();
+		
 
 		var $photoContainer = $("#photo-detail");
 		$photoTitle.html("Photo "+photoToShow);
+
+		$button.removeClass("active")
+		$("#button-"+albumNum).addClass("active");
 		
-		$photoContainer.html("<img class='img-responsive center-block' src=css/images/album-"+albumNum+"/"+photoToShow+".jpg>");
+		$photoContainer.html("<img class='img-responsive center-block' id='only-image' src=css/images/album-"+albumNum+"/"+photoToShow+".jpg>");
+	}
+
+	function goToNextPhoto(event){
+	
+		var $img = $("#only-image");
+		var imgSrcSlice = $img.attr("src").split("-");
+		var albumNumSplit = imgSrcSlice[1].split("/");
+		var albumNumString = albumNumSplit[0];
+		var moreSplit = albumNumSplit[1].split(".");
+		var imageNum = moreSplit[0];
+		var imageNumToInt = parseInt(imageNum);
+
+		if(event.target.id === "up"){
+			imageNumToInt++;
+			var photoToShow = imageNumToInt;
+			if(photoToShow === 15){
+				photoToShow = 1;
+			}
+		} else if(event.target.id === "down"){
+			imageNumToInt--;
+			var photoToShow = imageNumToInt;
+			if(photoToShow === 0){
+				photoToShow = 14;
+			}
+		}
+
+		var $photoContainer = $("#photo-detail");
+
+		$button.removeClass("active")
+		$("#button-"+albumNumString).addClass("active");
+
+		$photoTitle.html("Photo "+photoToShow);
+		$photoContainer.html("<img class='img-responsive center-block' id='only-image' src=css/images/album-"+albumNumString+"/"+photoToShow+".jpg>");
 	}
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
